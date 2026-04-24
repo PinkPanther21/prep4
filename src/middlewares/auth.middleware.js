@@ -32,10 +32,11 @@ async function authUser(req,res,next){
      const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
      req.user = decoded
-     next()
+     
      if(decoded.role !== "user" && decoded.role !== "artist"){
         return res.status(403).json({message: "You don't have access"})
      }
+     next()
    } catch(err){
     console.log(err)
     return res.status(401).json({message: "Unauthorized"})
